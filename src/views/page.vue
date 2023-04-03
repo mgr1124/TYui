@@ -10,7 +10,7 @@
           <el-input v-model="pagination.type" placeholder="type" class="filterinput" />
           <el-input v-model="pagination.description" placeholder="des" class="filterinput" />
           <el-button @click="getAll()" class="dalfBut">查询</el-button>
-          <el-button type="primary" class="butT" @click="handleCreate()">新建</el-button>
+          <el-button type="primary" class="butT"  @click="handleCreate()">新建</el-button>
 
           <!-- table -->
           <el-table size="small" current-row-key="id" :data="dataList" stripe highlight-current-row>
@@ -19,14 +19,89 @@
           <el-table-column prop="name" label="图书名称" align="center"></el-table-column>
           <el-table-column prop="description" label="描述" align="center"></el-table-column>
             <el-table-column label="操作" align="center">
-              <template slot-scope="scope">
-                  <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
-                  <el-button type="danger" size="mini" @click="handleDelete(scope.row)">删除</el-button>
+              <template #default="scope">
+                <el-button type="primary"  @click="handleUpdate(scope.row)">编辑</el-button>
+                <el-button type="danger"  @click="handleDelete(scope.row)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
-          <h1>123</h1>
 
+          <!-- 分页 -->
+          <div class="pagination-container">
+                <el-pagination
+                        class="pagiantion"
+                        @current-change="handleCurrentChange"
+                        :current-page="pagination.currentPage"
+                        :page-size="pagination.pageSize"
+                        layout="total, prev, pager, next, jumper"
+                        :total="pagination.total">
+                </el-pagination>
+            </div>
+
+            
+            <!-- 新增标签弹层 -->
+            <div class="add-form" >
+                <el-dialog title="新增图书" v-model="dialogFormVisible" width="30%" append-to-body>
+                    <el-form ref="dataAddForm" :model="formData" :rules="rules" label-position="right" label-width="100px">
+                        <el-row>
+                            <el-col :span="12">
+                                <el-form-item label="图书类别" prop="type">
+                                    <el-input v-model="formData.type"/>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="12">
+                                <el-form-item label="图书名称" prop="name">
+                                    <el-input v-model="formData.name"/>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+
+                        <el-row>
+                            <el-col :span="24">
+                                <el-form-item label="描述">
+                                    <el-input v-model="formData.description" type="textarea"></el-input>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                    </el-form>
+                    <div slot="footer" class="dialog-footer">
+                        <el-button @click="cancel()">取消</el-button>
+                        <el-button type="primary" @click="handleAdd()">确定</el-button>
+                    </div>
+                </el-dialog>
+            </div>
+
+            <!-- 编辑标签弹层 -->
+            <div class="add-form">
+                <el-dialog title="编辑检查项" v-model="dialogFormVisible4Edit" width="30%" append-to-body>
+                    <el-form ref="dataEditForm" :model="formData" :rules="rules" label-position="right" label-width="100px">
+                        <el-row>
+                            <el-col :span="12">
+                                <el-form-item label="图书类别" prop="type">
+                                    <el-input v-model="formData.type"/>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="12">
+                                <el-form-item label="图书名称" prop="name">
+                                    <el-input v-model="formData.name"/>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <el-col :span="24">
+                                <el-form-item label="描述">
+                                    <el-input v-model="formData.description" type="textarea"></el-input>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                    </el-form>
+                    <div slot="footer" class="dialog-footer">
+                        <el-button @click="cancel()">取消</el-button>
+                        <el-button type="primary" @click="handleEdit()">确定</el-button>
+                    </div>
+                </el-dialog>
+            </div>
+                
 
       </div>
     </div>
@@ -56,6 +131,7 @@ export default {
       },
      
     };
+    
   },
   mounted() {
     this.getAll()
@@ -106,7 +182,7 @@ export default {
 
     //添加
     handleAdd () {
-        this.$axios.defaults.baseURL = 'http://localhost/pages',
+        this.$axios.defaults.baseURL = 'http://localhost:82',
         this.$axios.post("/books",this.formData).then((res)=>{
             //判断当前操作是否成功
             if(res.data.flag){
@@ -131,7 +207,7 @@ export default {
 
     // 删除
     handleDelete(row) {
-        this.$axios.defaults.baseURL = 'http://localhost/pages',
+        this.$axios.defaults.baseURL = 'http://localhost:82',
         // console.log(row);
         this.$confirm("此操作永久删除当前信息，是否继续？","提示",{type:"info"}).then(()=>{
             this.$axios.delete("/books/"+row.id).then((res)=>{
@@ -151,7 +227,7 @@ export default {
 
     //弹出编辑窗口
     handleUpdate(row) {
-        this.$axios.defaults.baseURL = 'http://localhost/pages',
+        this.$axios.defaults.baseURL = 'http://localhost:82',
         this.$axios.get("/books/"+row.id).then((res)=>{
             if(res.data.flag && res.data.data != null ){
                 this.dialogFormVisible4Edit = true;
@@ -167,7 +243,7 @@ export default {
 
     //修改
     handleEdit() {
-        this.$axios.defaults.baseURL = 'http://localhost/pages',
+        this.$axios.defaults.baseURL = 'http://localhost:82',
         this.$axios.put("/books",this.formData).then((res)=>{
             //判断当前操作是否成功
             if(res.data.flag){
