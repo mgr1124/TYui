@@ -13,15 +13,15 @@
           <el-button type="primary" class="butT"  @click="handleCreate()">新建</el-button>
 
           <!-- table -->
-          <el-table size="small" current-row-key="id" :data="dataList" stripe highlight-current-row>
-          <el-table-column type="index" align="center" label="序号"></el-table-column>
-          <el-table-column prop="type" label="图书类别" align="center"></el-table-column>
-          <el-table-column prop="name" label="图书名称" align="center"></el-table-column>
-          <el-table-column prop="description" label="描述" align="center"></el-table-column>
-            <el-table-column label="操作" align="center">
+          <el-table size="small" current-row-key="id" :data="dataList" style="table-layout: fixed; " stripe highlight-current-row>
+          <el-table-column type="index" label="序号"></el-table-column>
+          <el-table-column prop="type" label="图书类别" ></el-table-column>
+          <el-table-column prop="name" label="图书名称" ></el-table-column>
+          <el-table-column prop="description" label="描述" ></el-table-column>
+            <el-table-column label="操作" >
               <template #default="scope">
-                <el-button type="primary"  @click="handleUpdate(scope.row)">编辑</el-button>
-                <el-button type="danger"  @click="handleDelete(scope.row)">删除</el-button>
+                <el-button size="small" @click="handleUpdate( scope.row)">编辑</el-button    >
+                <el-button size="small" type="danger" @click="handleDelete(scope.row)">Delete</el-button>
               </template>
             </el-table-column>
           </el-table>
