@@ -1,4 +1,5 @@
 <template>
+  <!-- 主页轮播 -->
   <div class="Carousel">
     <el-carousel indicator-position="outside">
       <el-carousel-item v-for="item in items" :key="item" >
@@ -11,9 +12,8 @@
     <el-button @click="search">搜索</el-button>
     </div>
   </div> 
-</template>
-  
 
+</template>
 
 <script>
 import { Search } from '@element-plus/icons-vue'
@@ -22,8 +22,6 @@ export default {
   name: 'main',
   data() {
     return {
-    //   dataList: [],//当前页要展示的列表数据   
-      input : "",
       items: [
           {imageSrc: '/src/assets/main/b1.jpg',},
           {imageSrc: '/src/assets/main/b2.jpg',},
