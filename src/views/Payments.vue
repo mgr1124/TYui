@@ -1,9 +1,3 @@
 <template>
+  pay
 </template>
-
-
-<script>
-
-</script>
-
-  

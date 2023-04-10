@@ -1,20 +1,61 @@
-  <script setup>
-  import { RouterLink, RouterView } from 'vue-router'
-  </script>
-  
-  <template>
-    <header> 
-      <div class="home"> 
-        <nav>
-          <RouterLink to="/">首页</RouterLink>
-          <RouterLink to="/orders">快递订单</RouterLink>
-          <RouterLink to="/payments">支付记录</RouterLink>
-          <RouterLink to="/logistics">物流状态</RouterLink>
-          <RouterLink to="/login">登录</RouterLink>
-        </nav>
+
+
+<template>
+  <div class="common-layout">
+    <el-container>
+      <el-header>
+        <div class="home"> 
+          <el-menu
+          :default-active="activeIndex"
+          class="el-menu-demo"
+          mode="horizontal"
+          @select="handleSelect"
+          router
+        >
+          <el-menu-item index="/">首页</el-menu-item>
+          <el-menu-item index="/orders">orders</el-menu-item>
+          <el-menu-item index="/payments">payments</el-menu-item>
+          <el-menu-item index="/logistics">logistics</el-menu-item>
+          <el-menu-item index="/login">login</el-menu-item>
+          <el-menu-item index="/test">test</el-menu-item>
+        </el-menu>
       </div>
-    </header>
-    <main>
-      <RouterView />
-    </main>
-  </template>
+      </el-header>
+      <el-main>
+        <RouterView />
+      </el-main>
+      <el-footer>Footer</el-footer>
+    </el-container>
+  </div>
+</template>
+
+<style>
+.common-layout{
+  width: auto;
+  height: auto;
+  background-color: aqua;
+}
+.home {
+  width: 100vh;
+  height: 1em;
+  background-color: #101723;
+}
+.el-header{
+  background-color: antiquewhite;
+}
+.el-footer{
+  background-color: antiquewhite;
+}
+</style>
+
+
+
+<script lang="ts" setup>
+import { RouterLink, RouterView } from 'vue-router'
+import { ref } from 'vue'
+
+const activeIndex = ref('1')
+const handleSelect = (key: string, keyPath: string[]) => {
+  console.log(key, keyPath)
+}
+</script>
