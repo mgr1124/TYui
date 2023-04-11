@@ -4,20 +4,18 @@
     <el-carousel indicator-position="outside">
       <el-carousel-item v-for="item in items" :key="item" >
         <img :src="item.imageSrc" fit="scale-down" style="width: 100%; " alt="carousel image" />
-        <el-button class="detail-button" @click="showDetails">Details</el-button>
+        <el-button class="detail-button" >Details</el-button>
       </el-carousel-item>
     </el-carousel>
     <div class="input_container">
-    <el-input placeholder="请输入搜索内容" v-model="searchText" clearable style="width: 20em;"></el-input>
-    <el-button @click="search">搜索</el-button>
+    <el-input  placeholder="物流订单查询" v-model="searchText" clearable style="width: 20em;"></el-input>
+    <el-button round @click="search">搜索</el-button>
     </div>
   </div> 
 
 </template>
 
 <script>
-import { Search } from '@element-plus/icons-vue'
-
 export default {
   name: 'main',
   data() {
@@ -66,6 +64,9 @@ export default {
   height: 30rem !important;
   min-height: 90vh;
   /* min-height: 200px !important; */
+}
+.input_container .el-input .el-input__wrapper{
+  border-radius:  var(--el-border-radius-round) !important;
 }
 </style>
  

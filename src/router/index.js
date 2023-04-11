@@ -3,8 +3,8 @@ import Home from '../views/Home.vue'
 import Main from '../views/Main.vue'
 import OrderList from '../views/OrderList.vue'
 import Payments from '../views/Payments.vue'
-import UserList from '../views/UserList.vue'
 import Login from '../views/Login.vue'
+import Logistics from '../views/Logistics.vue'
 import Test from '../views/Test.vue'
 
 const routes = [
@@ -24,14 +24,14 @@ const routes = [
     component: Payments
   },
   {
-    path: '/users',
-    name: 'UserList',
-    component: UserList
-  },
-  {
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/logistics',
+    name: 'Logistics',
+    component: Logistics
   },
   {
     path: '/test',
