@@ -4,17 +4,19 @@
 
       <el-header>
         <div class="home"> 
-          <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" :ellipsis="false"
+          <el-menu default-active="1" class="el-menu-demo" mode="horizontal" :ellipsis="false"
           @select="handleSelect" router >
             <el-menu-item index="/">首页</el-menu-item>
             <el-menu-item index="/orders">orders</el-menu-item>
             <el-menu-item index="/payments">payments</el-menu-item>
-            <el-menu-item index="/logistics">物流订单</el-menu-item>
+            <el-menu-item index="/logistics/:logistics_id">物流订单</el-menu-item>
             <el-menu-item index="/login">login</el-menu-item>
             <el-menu-item index="/test">test</el-menu-item>
+            <el-menu-item index="/component-a">component-a</el-menu-item>
+            <el-menu-item index="/component-b/:id">component-b/:id</el-menu-item>
             <div class="flex-grow" style="flex-grow: 1;"></div>
             <el-sub-menu index="2">
-              <template #title><el-avatar />{{ this.user.userName }}</template>
+              <template #title><el-avatar  /> {{user.userName}} </template>
               <el-menu-item index="/" @click="dialogVisible = true">登录</el-menu-item>
               <el-menu-item index="/">item two</el-menu-item>
               <el-menu-item index="/">item three</el-menu-item>
@@ -46,56 +48,30 @@
   </div>
 </template>
 
-<script>
+<script lang="ts" setup>
 import { RouterLink, RouterView } from 'vue-router'
-import { ElMessageBox } from 'element-plus'
 import { ref } from 'vue';
+import axios from 'axios';
 
-export default {
-  name: 'main',
-  data() {
-    return {
-      user:[],
-      activeIndex : 1,
-      dialogVisible : ref(false),
-      input_id : "",
-      input_password : "",
-    };
-    
-  },
-  methods: {
-    handleSelect() {
-      console.log("handleSelect");
-    },
-    handleClose() {
-      ElMessageBox.confirm('Are you sure to close this dialog?').then(() => {
-        done()
-      })
-      .catch(() => {
-        // catch error
-      })
-    },
-    main_dia_login() {
-      console.log("main_dia_login");
-      this.dialogVisible = ref(false);
-      this.$axios.get("/api/users/"+this.input_id+"/"+this.input_password).then((res)=>{
-          this.user = res.data.data;
-          console.log(res);
-        });
-    },
-    // main_dia_login() {
-    //     param = "?id="+this.input_id;
-    //     param +="&password="+this.input_password;
+const user = ref({
+  userName:""
+})
+const dialogVisible = ref(false)
+const input_id = ref('')
+const input_password = ref('')
 
-    //     axios.get("/api/users/"+param).then((res)=>{
-    //       this.user = res.data.data;
-    //     });
-    // },
-       
-    
-  }
+const handleSelect = () => {
+  console.log("handleSelect");
 }
+const main_dia_login = () =>{
+  dialogVisible.value = false;
+  axios.get("/api/users/"+input_id.value+"/"+input_password.value).then((res)=>{
+    user.value = res.data.data;
+  })
+}
+
 </script>
+
 
 <style>
 .el-main{

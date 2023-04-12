@@ -6,34 +6,34 @@
         </div>
         <div class="logistics_main">
             <div class="logistics_main_hander">
-                <span class="logistics_main_span">物流号： {{this.logisticsData.logistics.logisticsId}} </span>
-                <span class="logistics_main_span">发货时间： {{this.logisticsData.logistics.deliveryTime}} </span>
-                <span class="logistics_main_span">收货时间： {{this.logisticsData.logistics.orderTime}} </span>
+                <span class="logistics_main_span">物流号： {{logisticsData.logistics.logisticsId}} </span>
+                <span class="logistics_main_span">发货时间： {{logisticsData.logistics.deliveryTime}} </span>
+                <span class="logistics_main_span">收货时间： {{logisticsData.logistics.orderTime}} </span>
             </div>
             <div class="logistics_main_order">
                 <div class="logistics_main_order_span">
-                    <span class="logistics_main_span">订单号： {{this.logisticsData.order.orderId}} </span>
-                    <span class="logistics_main_span">重量： {{this.logisticsData.order.orderWeight}} </span>
-                    <span class="logistics_main_span">类型： {{this.logisticsData.order.orderType}} </span>
-                    <span class="logistics_main_span">金额： {{this.logisticsData.order.orderCost}} </span>
+                    <span class="logistics_main_span">订单号： {{logisticsData.order.orderId}} </span>
+                    <span class="logistics_main_span">重量： {{logisticsData.order.orderWeight}} </span>
+                    <span class="logistics_main_span">类型： {{logisticsData.order.orderType}} </span>
+                    <span class="logistics_main_span">金额： {{logisticsData.order.orderCost}} </span>
                 </div>
                 <el-steps class="logistics_main_order_steps" :active="2" finish-status="success">
-                    <el-step title="北京" />
+                    <el-step :title="logisticsData.addressSender.addrDes" />
                     <el-step title=" " />
                     <el-step title=" " />
-                    <el-step title="大连" />
+                    <el-step :title="logisticsData.addressConsignee.addrDes" />
                 </el-steps>
                 <div class="logistics_main_order_linkman">
                     <div class="linkman">
-                        <span >发件人： {{this.logisticsData.addressSender.addrLinkman}} </span>
-                        <span >电话：  </span>
-                        <span >地址： {{this.logisticsData.addressSender.addrDes}} </span>
+                        <span >发件人： {{logisticsData.addressSender.addrLinkman}} </span>
+                        <span >电话：  {{logisticsData.addressSender.addrTelephone}}</span>
+                        <span >地址： {{logisticsData.addressSender.addrDes}} </span>
                     </div>
                         
                     <div class="linkman">
-                        <span >收件人： {{this.logisticsData.addressConsignee.addrLinkman}} </span>
-                        <span >电话：  </span>
-                        <span >地址： {{this.logisticsData.addressConsignee.addrDes}} </span>
+                        <span >收件人： {{logisticsData.addressConsignee.addrLinkman}} </span>
+                        <span >电话：  {{logisticsData.addressConsignee.addrTelephone}}</span>
+                        <span >地址： {{logisticsData.addressConsignee.addrDes}} </span>
                     </div>
                 </div>
 
@@ -45,8 +45,76 @@
     </div>
 </template>
 
+<script lang="ts" setup>
+import { onMounted, ref } from 'vue';
+import axios from 'axios';
+import { useRoute } from "vue-router"
+const testText = ref("")
+const searchText = ref("")
+const route = useRoute()
+const logisticsData = ref({
+        logistics: {
+            logisticsId: "",
+            orderTime: "",
+            deliveryTime: "",
+            logisticsAddr: "",
+            orderId: "",
+            userId: ""
+        },
+        order: {
+            orderId: "",
+            orderSender: "",
+            orderConsignee: "",
+            orderType: "",
+            orderWeight: "",
+            orderCost: "",
+            orderState: ""
+        },
+        addressSender: {
+            addrId: "",
+            userId: "",
+            addrLinkman: "",
+            addrTelephone: "",
+            addrDes: "",
+            addrTag: ""
+        },
+        addressConsignee: {
+            addrId: "",
+            userId: "",
+            addrLinkman: "",
+            addrTelephone: "",
+            addrDes: "",
+            addrTag: ""
+        }
+    })
 
-<script>
+const logisticsSearch = async () => {
+    try {
+        const response = await axios.get("/api/logistics/"+searchText.value);
+        logisticsData.value = response.data.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const logisticsSearchByMain = async () => {
+    try {
+        console.log(route.params.logistics_id);
+        const response = await axios.get("/api/logistics/"+route.params.logistics_id);
+        logisticsData.value = response.data.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+onMounted(() => {
+    if( route.params.logistics_id != "" ){
+        logisticsSearchByMain();
+    }
+  })
+</script>
+<!-- 
+<script lang="ts">
 export default {
   name: 'main',
   data() {
@@ -85,14 +153,26 @@ export default {
         }
     },
       searchText : "",
+      testText : "test",
     };
     
   },
+    mounted() {
+    logisticsSearchByMain()
+  },
   methods: {
     logisticsSearch() {
-      console.log(this.searchText);
-      this.$axios.get("/api/logistics/"+this.searchText).then((res)=>{
-          this.logisticsData = res.data.data;
+      console.log(searchText);
+      $axios.get("/api/logistics/"+searchText).then((res)=>{
+          logisticsData = res.data.data;
+          console.log(res);
+        });
+
+    },
+    logisticsSearchByMain() {
+      console.log($route.params.logistics_id);
+      $axios.get("/api/logistics/"+$route.params.logistics_id).then((res)=>{
+          logisticsData = res.data.data;
           console.log(res);
         });
 
@@ -101,7 +181,7 @@ export default {
     
   }
 }
-</script>
+</script> -->
 
 <style scoped>
 

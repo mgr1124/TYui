@@ -8,8 +8,8 @@
       </el-carousel-item>
     </el-carousel>
     <div class="input_container">
-    <el-input  placeholder="物流订单查询" v-model="searchText" clearable style="width: 20em;"></el-input>
-    <el-button round @click="search">搜索</el-button>
+    <el-input size="large" placeholder="物流订单查询" v-model="searchText" clearable style="width: 20em;"></el-input>
+    <el-button size="large" round @click="search">搜索</el-button>
     </div>
   </div> 
 
@@ -17,7 +17,6 @@
 
 <script>
 export default {
-  name: 'main',
   data() {
     return {
       items: [
@@ -36,7 +35,10 @@ export default {
   methods: {
     search() {
       console.log("search");
+      const logistics_id = this.searchText // 参数值，可以根据实际情况设置
+      this.$router.push({ name: 'logistics', params: { logistics_id }})
     },
+
     
 
   }

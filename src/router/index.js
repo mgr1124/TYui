@@ -6,36 +6,48 @@ import Payments from '../views/Payments.vue'
 import Login from '../views/Login.vue'
 import Logistics from '../views/Logistics.vue'
 import Test from '../views/Test.vue'
+import ComponentA from '@/components/ComponentA.vue'
+import ComponentB from '@/components/ComponentB.vue'
 
 const routes = [
   {
+    path: '/component-a',
+    name: 'component-a',
+    component: ComponentA,
+  },
+  {
+    path: '/component-b/:id',
+    name: 'component-b',
+    component: ComponentB,
+  },
+  {
     path: '/',
-    name: 'Main',
+    name: 'main',
     component: Main
   },
   {
     path: '/orders',
-    name: 'OrderList',
+    name: 'orderList',
     component: OrderList
   },
   {
     path: '/payments',
-    name: 'Payments',
+    name: 'payments',
     component: Payments
   },
   {
     path: '/login',
-    name: 'Login',
+    name: 'login',
     component: Login
   },
   {
-    path: '/logistics',
-    name: 'Logistics',
+    path: '/logistics/:logistics_id',
+    name: 'logistics',
     component: Logistics
   },
   {
-    path: '/test',
-    name: 'Test',
+    path: '/test/:id',
+    name: 'test',
     component: Test
   },
 ]

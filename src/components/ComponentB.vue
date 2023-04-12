@@ -1,6 +1,5 @@
 <template>
   <div>
-    123
     <p>Received ID: {{ $route.params.id }}</p>
   </div>
 </template>
