@@ -7,7 +7,7 @@
           <el-menu default-active="1" class="el-menu-demo" mode="horizontal" :ellipsis="false"
           @select="handleSelect" router >
             <el-menu-item index="/">首页</el-menu-item>
-            <el-menu-item index="/orders">orders</el-menu-item>
+            <el-menu-item index="/orders">邮寄下单</el-menu-item>
             <el-menu-item index="/payments">payments</el-menu-item>
             <el-menu-item index="/logistics/:logistics_id">物流订单</el-menu-item>
             <el-menu-item index="/login">login</el-menu-item>
@@ -16,7 +16,7 @@
             <el-menu-item index="/component-b/:id">component-b/:id</el-menu-item>
             <div class="flex-grow" style="flex-grow: 1;"></div>
             <el-sub-menu index="2">
-              <template #title><el-avatar  /> {{user.userName}} </template>
+              <template #title><el-avatar :icon="UserFilled" /> {{user.userName}} </template>
               <el-menu-item index="/" @click="dialogVisible = true">登录</el-menu-item>
               <el-menu-item index="/">item two</el-menu-item>
               <el-menu-item index="/">item three</el-menu-item>
@@ -49,29 +49,26 @@
 </template>
 
 <script lang="ts" setup>
-import { RouterLink, RouterView } from 'vue-router'
-import { ref } from 'vue';
-import axios from 'axios';
-
-const user = ref({
-  userName:""
-})
-const dialogVisible = ref(false)
-const input_id = ref('')
-const input_password = ref('')
-
-const handleSelect = () => {
-  console.log("handleSelect");
-}
-const main_dia_login = () =>{
-  dialogVisible.value = false;
-  axios.get("/api/users/"+input_id.value+"/"+input_password.value).then((res)=>{
-    user.value = res.data.data;
+  import { RouterLink, RouterView } from 'vue-router'
+  import { ref } from 'vue';
+  import axios from 'axios';
+  import { UserFilled } from '@element-plus/icons-vue'
+  const user = ref({
+    userName:""
   })
-}
-
+  const dialogVisible = ref(false)
+  const input_id = ref('')
+  const input_password = ref('')
+  const handleSelect = () => {
+    console.log("handleSelect");
+  }
+  const main_dia_login = () =>{
+    dialogVisible.value = false;
+    axios.get("/api/users/"+input_id.value+"/"+input_password.value).then((res)=>{
+      user.value = res.data.data;
+    })
+  }
 </script>
-
 
 <style>
 .el-main{

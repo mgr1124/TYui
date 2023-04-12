@@ -113,78 +113,8 @@ onMounted(() => {
     }
   })
 </script>
-<!-- 
-<script lang="ts">
-export default {
-  name: 'main',
-  data() {
-    return {
-      logisticsData: {
-        logistics: {
-            logisticsId: "",
-            orderTime: "",
-            deliveryTime: "",
-            logisticsAddr: "",
-            orderId: "",
-            userId: ""
-        },
-        order: {
-            orderId: "",
-            orderSender: "",
-            orderConsignee: "",
-            orderType: "",
-            orderWeight: "",
-            orderCost: "",
-            orderState: ""
-        },
-        addressSender: {
-            addrId: "",
-            userId: "",
-            addrLinkman: "",
-            addrDes: "",
-            addrTag: ""
-        },
-        addressConsignee: {
-            addrId: "",
-            userId: "",
-            addrLinkman: "",
-            addrDes: "",
-            addrTag: ""
-        }
-    },
-      searchText : "",
-      testText : "test",
-    };
-    
-  },
-    mounted() {
-    logisticsSearchByMain()
-  },
-  methods: {
-    logisticsSearch() {
-      console.log(searchText);
-      $axios.get("/api/logistics/"+searchText).then((res)=>{
-          logisticsData = res.data.data;
-          console.log(res);
-        });
-
-    },
-    logisticsSearchByMain() {
-      console.log($route.params.logistics_id);
-      $axios.get("/api/logistics/"+$route.params.logistics_id).then((res)=>{
-          logisticsData = res.data.data;
-          console.log(res);
-        });
-
-    },
-       
-    
-  }
-}
-</script> -->
 
 <style scoped>
-
 .logistics_hander{
     padding: 4em 5em ;
 }
@@ -214,7 +144,6 @@ export default {
 .logistics_main_order_linkman{
     display: flex;
     flex-wrap: nowrap
-    
 }
 .logistics_main_order_linkman .linkman{
     display: flex;

@@ -46,7 +46,7 @@ const routes = [
     component: Logistics
   },
   {
-    path: '/test/:id',
+    path: '/test',
     name: 'test',
     component: Test
   },
