@@ -49,7 +49,6 @@
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
 import { useRoute } from "vue-router"
-const testText = ref("")
 const searchText = ref("")
 const route = useRoute()
 const logisticsData = ref({

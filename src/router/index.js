@@ -1,55 +1,48 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
-import Main from '../views/Main.vue'
-import OrderList from '../views/OrderList.vue'
-import Payments from '../views/Payments.vue'
-import Login from '../views/Login.vue'
-import Logistics from '../views/Logistics.vue'
-import Test from '../views/Test.vue'
-import ComponentA from '@/components/ComponentA.vue'
-import ComponentB from '@/components/ComponentB.vue'
+// import Home from '../views/Home.vue'
+import HomeMain from '../views/HomeMain.vue'
+import HomeOrderList from '../views/HomeOrderList.vue'
+import HomePayments from '../views/HomePayments.vue'
+import HomeLogin from '../views/HomeLogin.vue'
+import HomeLogistics from '../views/HomeLogistics.vue'
+import HomeTest from '../views/HomeTest.vue'
+import OrderListpay from '../components/OrderList/OrderListpay.vue';
 
 const routes = [
   {
-    path: '/component-a',
-    name: 'component-a',
-    component: ComponentA,
-  },
-  {
-    path: '/component-b/:id',
-    name: 'component-b',
-    component: ComponentB,
-  },
-  {
     path: '/',
     name: 'main',
-    component: Main
+    component: HomeMain
   },
   {
     path: '/orders',
     name: 'orderList',
-    component: OrderList
+    component: HomeOrderList,
+      children: [
+        { path: 'OrderListpay', component: OrderListpay }
+      ]
   },
   {
     path: '/payments',
     name: 'payments',
-    component: Payments
+    component: HomePayments
   },
   {
     path: '/login',
     name: 'login',
-    component: Login
+    component: HomeLogin
   },
   {
     path: '/logistics/:logistics_id',
     name: 'logistics',
-    component: Logistics
+    component: HomeLogistics
   },
   {
     path: '/test',
     name: 'test',
-    component: Test
+    component: HomeTest
   },
+
 ]
 
 const router = createRouter({

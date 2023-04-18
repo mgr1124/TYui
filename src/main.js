@@ -15,3 +15,4 @@ app.use(ElementPlus)
 app.mount('#app')
 app.config.globalProperties.$axios=axios;  //配置axios的全局引用
 
+
