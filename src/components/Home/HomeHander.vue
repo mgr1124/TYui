@@ -41,8 +41,11 @@
   import { ref } from 'vue';
   import axios from 'axios';
   import { UserFilled } from '@element-plus/icons-vue'
+  import { useStore } from 'vuex'
+  const store = useStore();
   const user = ref({
-    userName:""
+    userName:"",
+    userId:""
   })
   const dialogVisible = ref(false)
   const input_id = ref('')
@@ -54,8 +57,12 @@
     dialogVisible.value = false;
     axios.get("/api/users/"+input_id.value+"/"+input_password.value).then((res)=>{
       user.value = res.data.data;
+      store.state.userId = user.value.userId;
+      // console.log(res);
+      // console.log("store.state.userId:  "+store.state.userId);
     })
   }
+
 </script>
 
 <style>

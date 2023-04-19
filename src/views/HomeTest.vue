@@ -1,26 +1,22 @@
+<!-- 父组件 app.vue -->
 <template>
-  <div>
-    <div>父组件的toCity{{text.inputtext1}}</div>
-    <div>父组件的toCity{{text.inputtext2}}</div>
-      <div>父组件的toCity{{state.inputtext}}</div>
-      <train-city @showCityName="updateCity" :sendData="state.inputtext"></train-city>
+  <div class="itxst">
+    <!-- 使用 ref  指令关联子组件 -->
+    <child ref="childComp"/>
+    <button @click="onTry">点击试一试</button>
   </div>
 </template>
-
-<script lang="ts" setup>
-import TrainCity from "./HomePayments.vue";
-import { reactive} from 'vue';
-const components = { TrainCity }
-const state = reactive({ inputtext:"北京" })
-const text = reactive({
-  inputtext1 : '',
-  inputtext2 : ''
-})
-
-const updateCity = (data) => {
-    text.inputtext1 = data.text.inputtext1;//改变了父组件的值
-    text.inputtext2 = data.text.inputtext2;//改变了父组件的值
-    console.log('toCity:' + state.inputtext)
-}
-
+<script setup>
+import { reactive, ref } from "vue";
+import child from "./HomePayments.vue";
+//定义子组件实例，名称要和上面的ref相同
+const childComp = ref(null);
+ 
+//访问demo组件的方法或对象
+const onTry = () => {
+  //获取到子组件的 title 数据 
+  let msg = childComp.value.state.title;
+  //调用子组件的 play方法
+  childComp.value.play();
+};
 </script>

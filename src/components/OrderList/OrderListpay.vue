@@ -1,7 +1,7 @@
 <template>
   <div class="OrderListpay">
     <div class="OrderListType">
-      <el-radio-group fill="#DC4C3F" v-model="sizeForm.ordertype" label="OrderListType" >
+      <el-radio-group fill="#DC4C3F" v-model="orderList.order.ordertype" label="OrderListType" >
         <el-radio-button label="快递">寄快递</el-radio-button>
         <el-radio-button label="重物">寄重物</el-radio-button>
         <el-radio-button label="生鲜">寄生鲜</el-radio-button>
@@ -10,60 +10,92 @@
     <br />
     <div class="OrderForm">
       <div class="FormLeft">
-        <OrderForm ref="OrderForm1" />
+        <OrderFormSender ref="FormSender" />
       </div>
       <div class="FormRight">
-        <OrderForm ref="OrderForm2"/>
+        <OrderFormConsignee ref="FormConsignee"/>
       </div>
     </div>
-    <!-- <el-form-item label="Activity time">
-        <el-col :span="11">
-          <el-date-picker
-            v-model="sizeForm.date1"
-            type="date"
-            label="Pick a date"
-            placeholder="Pick a date"
-            style="width: 100%"
-          />
-        </el-col>
-        <el-col class="text-center" :span="1" style="margin: 0 0.5rem">-</el-col>
-        <el-col :span="11">
-          <el-time-picker
-            v-model="sizeForm.date2"
-            label="Pick a time"
-            placeholder="Pick a time"
-            style="width: 100%"
-          />
-        </el-col>
-      </el-form-item> -->
+    <div class="FromSendType">
+      <OrderFormType ref="FormConType" />     
+    </div>
+    <div class="FromSendType">
+      
+
+    </div>
+
+    <el-button @click="Submit" >Submit</el-button>
+
+
       <!-- <el-form-item label="Activity type">
-        <el-checkbox-group v-model="sizeForm.type">
+        <el-checkbox-group v-model="linkman.type">
           <el-checkbox-button label="Online activities" name="type" />
           <el-checkbox-button label="Promotion activities" name="type" />
         </el-checkbox-group>
       </el-form-item> -->
-      <!-- <el-form-item label="Resources">
-        <el-radio-group v-model="sizeForm.resource">
-          <el-radio border label="Sponsor" />
-          <el-radio border label="Venue" />
-        </el-radio-group>
-      </el-form-item> -->
+
     
   </div>
   </template>
   
   <script lang="ts" setup>
   import { reactive, ref ,computed } from 'vue'
-  import OrderListpaylinkman from '@/components/OrderList/Form/OrderListpaylinkman.vue'
-  import OrderForm from '@/components/OrderList/Form/OrderForm.vue'
-  
+  import axios from 'axios';
+  import OrderListpaylinkman from './Form/OrderListpaylinkman.vue'
+  import OrderFormSender from './Form/OrderFormSender.vue'
+  import OrderFormConsignee from './Form/OrderFormConsignee.vue'
+  import OrderFormType from './Form/OrderFormType.vue'
+  const FormSender = ref(null);
+  const FormConsignee = ref(null);
+  const FormConType = ref(null);
+
   const components = {
     OrderListpaylinkman,
-    OrderForm
+    OrderFormSender,
+    OrderFormConsignee,
+    OrderFormType
   }
-  
-  const sizeForm ={}
-  
+  const orderList =reactive({
+    order:{
+      ordertype:'',
+      orderPickuptime:'',
+      orderSendtype:'',
+      orderCouriernumber:'',
+      orderCommodity:'',
+      orderWeight:'',
+      orderVolume:'',
+      orderDesc:'',
+      orderCost:''
+    },
+    addressSender:{},
+    addressConsignee:{},
+    payment:{
+      payType:'',
+      payCost:''
+    }
+  })
+
+  const Submit = () => {
+    orderList.addressSender = FormSender.value.addressSender;  //FormSender.value.addressSender
+    orderList.addressConsignee = FormConsignee.value.addressConsignee;  //FormConsignee.value.linkman
+    let msgSendTypee = FormConType.value.sendType;  //FormConType.value.sendType;
+    orderList.order.orderPickuptime = String(msgSendTypee.date1).slice(4,16) + String(msgSendTypee.date2).slice(16,24);
+    orderList.order.orderSendtype = msgSendTypee.orderSendtype;
+    orderList.order.orderCouriernumber = msgSendTypee.orderCouriernumber;
+    orderList.order.orderCommodity = msgSendTypee.orderCommodity;
+    orderList.order.orderWeight = msgSendTypee.orderWeight;
+    orderList.order.orderVolume = msgSendTypee.orderVolume;
+    orderList.order.orderDesc = msgSendTypee.orderDesc;
+    orderList.order.orderCost = msgSendTypee.orderCost;
+    orderList.payment.payType = msgSendTypee.payType;
+    orderList.payment.payCost = msgSendTypee.orderCost;
+
+    console.log("orderList",orderList);
+    axios.post("/api/orders",orderList).then((res)=>{
+      console.log("是否成功："+res.data.flag);
+    })
+
+  };
   </script>
   
   <style scoped>
@@ -95,4 +127,8 @@
     height: 2rem;
     background-color:antiquewhite; */
   }
+  /* .FromSendType{
+    border-top: 1px solid #ccc!important;;
+    border-bottom: 1px solid #ccc!important;
+  } */
   </style>
