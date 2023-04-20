@@ -6,7 +6,8 @@ import HomePayments from '../views/HomePayments.vue'
 import HomeLogin from '../views/HomeLogin.vue'
 import HomeLogistics from '../views/HomeLogistics.vue'
 import HomeTest from '../views/HomeTest.vue'
-import OrderListpay from '../components/OrderList/OrderListpay.vue';
+import OrderListPay from '../components/OrderList/OrderListPay.vue';
+import OrderListMe from '../components/OrderList/OrderListMe.vue';
 
 const routes = [
   {
@@ -19,7 +20,8 @@ const routes = [
     name: 'orderList',
     component: HomeOrderList,
       children: [
-        { path: 'OrderListpay', component: OrderListpay }
+        { path: 'OrderListPay', component: OrderListPay },
+        { path: 'OrderListMe', component: OrderListMe },
       ]
   },
   {

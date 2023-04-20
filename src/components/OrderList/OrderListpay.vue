@@ -19,22 +19,7 @@
     <div class="FromSendType">
       <OrderFormType ref="FormConType" />     
     </div>
-    <div class="FromSendType">
-      
-
-    </div>
-
-    <el-button @click="Submit" >Submit</el-button>
-
-
-      <!-- <el-form-item label="Activity type">
-        <el-checkbox-group v-model="linkman.type">
-          <el-checkbox-button label="Online activities" name="type" />
-          <el-checkbox-button label="Promotion activities" name="type" />
-        </el-checkbox-group>
-      </el-form-item> -->
-
-    
+      <el-button style="width: 10rem;margin: 0 auto;" @click="Submit" >提交订单</el-button>
   </div>
   </template>
   
@@ -45,6 +30,10 @@
   import OrderFormSender from './Form/OrderFormSender.vue'
   import OrderFormConsignee from './Form/OrderFormConsignee.vue'
   import OrderFormType from './Form/OrderFormType.vue'
+  import { ElNotification,ElMessageBox,ElMessage  } from 'element-plus'
+  import { useStore } from 'vuex'
+
+  const store = useStore();
   const FormSender = ref(null);
   const FormConsignee = ref(null);
   const FormConType = ref(null);
@@ -57,6 +46,7 @@
   }
   const orderList =reactive({
     order:{
+      orderUserid:store.state.userId,
       ordertype:'',
       orderPickuptime:'',
       orderSendtype:'',
@@ -89,12 +79,22 @@
     orderList.order.orderCost = msgSendTypee.orderCost;
     orderList.payment.payType = msgSendTypee.payType;
     orderList.payment.payCost = msgSendTypee.orderCost;
-
-    console.log("orderList",orderList);
-    axios.post("/api/orders",orderList).then((res)=>{
-      console.log("是否成功："+res.data.flag);
-    })
-
+    if(orderList.order.orderUserid != ''){
+        axios.post("/api/orders",orderList).then((res)=>{
+        // console.log("是否成功："+res.data.flag);
+        let flag;
+        if(res.data.flag)flag = '下单成功';else flag = '下单成功';
+        ElMessageBox.alert(flag, '提示', {
+          confirmButtonText: 'OK',
+        })
+      })
+    }else{
+        ElNotification({
+        title: 'Warning',
+        message: '-------------请先登入账号-------------',
+        type: 'warning',
+      })
+    }
   };
   </script>
   
@@ -116,19 +116,7 @@
     display: flex;
     flex-wrap: nowrap
   }
-  .FormLeft{
-    /* width: 2rem  ;
-    height: 2rem; */
-    /* background-color: aqua; */
-  }
   .FormRight{
     margin-left: 2rem;
-    /* width: 2rem  ;
-    height: 2rem;
-    background-color:antiquewhite; */
   }
-  /* .FromSendType{
-    border-top: 1px solid #ccc!important;;
-    border-bottom: 1px solid #ccc!important;
-  } */
   </style>

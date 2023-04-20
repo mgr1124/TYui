@@ -3,13 +3,13 @@
     <div class="HomeOrderListMain">
       <el-row class="HomeOrderListMainTac">
         <el-col :span="12">
-          <el-menu default-active="1" class="el-menu-vertical-demo"
-            @open="handleOpen" @close="handleClose" router >
-          <el-menu-item index="/orders/OrderListpay">
+          <el-menu default-active="/orders/OrderListPay" class="el-menu-vertical-demo"
+            @open="handleOpen" @close="handleClose" router>
+          <el-menu-item index="/orders/OrderListPay">
               <el-icon><icon-menu /></el-icon>
               <span>在线下单</span>
             </el-menu-item>
-            <el-menu-item index="2">
+            <el-menu-item index="/orders/OrderListMe">
               <el-icon><icon-menu /></el-icon>
               <span>我的订单</span>
             </el-menu-item>

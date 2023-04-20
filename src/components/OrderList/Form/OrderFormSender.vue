@@ -84,8 +84,8 @@ addrLinkman: [
 ],
 addrTelephone: [
   { required: true, message: '输入电话号', trigger: 'blur' },
+  { pattern: /^-?\d+\.?\d*$/, message: '输入数字',trigger: 'blur' },
   { min: 3, max: 11, message: '长度在3-11', trigger: 'blur' },
-  { type: 'number', message: '输入数字' },
 ],
 addrDes: [
   { required: true, message: '输入地址', trigger: 'blur' },

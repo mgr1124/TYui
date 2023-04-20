@@ -11,9 +11,9 @@
             <el-menu-item index="2-4-3">跨境服务</el-menu-item>
         </el-sub-menu>
         <el-menu-item index="/orders">邮寄下单</el-menu-item>
-        <el-menu-item index="/payments">payments</el-menu-item>
         <el-menu-item index="/logistics/:logistics_id">物流订单</el-menu-item>
         <el-menu-item index="/login">login</el-menu-item>
+        <el-menu-item index="/payments">payments</el-menu-item>
         <el-menu-item index="/test">test</el-menu-item>
         <div class="flex-grow" style="flex-grow: 1;"></div>
         <el-sub-menu index="2">

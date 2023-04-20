@@ -91,6 +91,7 @@ const logisticsSearch = async () => {
     try {
         const response = await axios.get("/api/logistics/"+searchText.value);
         logisticsData.value = response.data.data;
+        console.log(logisticsData.value);
     } catch (error) {
         console.log(error);
     }

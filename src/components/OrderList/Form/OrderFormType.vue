@@ -32,7 +32,7 @@
         <span>物品信息</span>
     </div>
     <div class="OrderFormTypemain">
-        <el-form label-width="auto" label-position="right">
+        <el-form label-width="auto" label-position="right" :rules="rules" :model="sendType">
             <el-form-item label="邮寄物品：" >
                 <el-radio-group v-model="sendType.orderCommodity" >
                 <el-radio border label="文件" />
@@ -46,13 +46,13 @@
                 </el-radio-group>
             </el-form-item>
             <el-form-item  >
-                <el-form-item  label="重量：">
-                    <el-input v-model="sendType.orderWeight" placeholder="重量：kg，例：“5”"  style="width: 13rem;" >
+                <el-form-item  label="重量：" prop="orderWeight">
+                    <el-input v-model="sendType.orderWeight" placeholder="重量:kg:例:“5”"  style="width: 13rem;" >
                         <template #append>kg</template>
                     </el-input>
                 </el-form-item>
-                <el-form-item  label="体积：">
-                    <el-input v-model="sendType.orderVolume" placeholder="体积：m³，例：“1”" style="width: 13rem;" >
+                <el-form-item  label="体积："  prop="orderVolume">
+                    <el-input v-model="sendType.orderVolume" placeholder="体积:m³:例:“1”" style="width: 13rem;" >
                         <template #append>m³</template>    
                     </el-input>
                 </el-form-item>
@@ -82,7 +82,8 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue';
+import { reactive,watch } from 'vue';
+import type { FormRules } from 'element-plus'
 
 const sendType = reactive({
     orderSendtype:'',
@@ -94,7 +95,7 @@ const sendType = reactive({
     orderVolume:'',
     payType:'',
     orderDesc:'',
-    orderCost:'10'
+    orderCost:0
 })
 
 const typeChange = () =>{
@@ -108,7 +109,25 @@ const typeChange = () =>{
         if (styleElementCI !== null){styleElementCI.style.display='block'}
     }
 }
-
+const rules = reactive<FormRules>({
+    orderWeight: [
+    { required: true, message: '请输入', trigger: 'blur' },
+    { min: 0, max: 5, message: '数字太大了', trigger: 'blur' },
+    { pattern: /^-?\d+\.?\d*$/, message: '输入数字' },
+  ],  
+    orderVolume: [
+    { required: true, message: '请输入', trigger: 'blur' },
+    { min: 0, max: 5, message: '数字太大了', trigger: 'blur' },
+    { pattern: /^-?\d+\.?\d*$/, message: '输入数字' },
+  ]
+})
+watch(sendType, function (value, oldvalue) {
+    sendType.orderCost = (Number(value.orderWeight) * 2)
+    if(Number(sendType.orderVolume) >= 1){
+        sendType.orderCost += Number(sendType.orderVolume)*5
+    }
+})
+      
 defineExpose({
     sendType,
 });
