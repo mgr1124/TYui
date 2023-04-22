@@ -23,7 +23,6 @@
     import Send from './OrderListMe/Send.vue'
     import Receive from './OrderListMe/Receive.vue'
 
-
     const activeName = ref('first')
     const store = useStore();
     const FormConType = ref(null);

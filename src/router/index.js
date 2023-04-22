@@ -8,6 +8,7 @@ import HomeLogistics from '../views/HomeLogistics.vue'
 import HomeTest from '../views/HomeTest.vue'
 import OrderListPay from '../components/OrderList/OrderListPay.vue';
 import OrderListMe from '../components/OrderList/OrderListMe.vue';
+import WarehouseServices from '../components/Server/WarehouseServices.vue';
 
 const routes = [
   {
@@ -23,6 +24,12 @@ const routes = [
         { path: 'OrderListPay', component: OrderListPay },
         { path: 'OrderListMe', component: OrderListMe },
       ]
+  },
+  {
+    path: '/server',
+    name: 'server',
+    component: WarehouseServices,
+
   },
   {
     path: '/payments',

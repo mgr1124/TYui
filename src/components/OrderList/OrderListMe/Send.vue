@@ -1,24 +1,31 @@
 <!-- eslint-disable vue/multi-word-component-names -->
   <template>
     <div class="SendFormType">
-        <el-input size="large" placeholder="订单号" v-model="searchText" clearable style="width: 20em;"></el-input>
-        <el-button size="large" round @click="search">搜索</el-button>
+        <el-input size="large" placeholder="订单号" v-model="pagination.orderId" clearable style="width: 20em;"></el-input>
+        <el-button size="large" round @click="getAll">搜索</el-button>
+        <div  style="height: 1rem;"/>
+        <el-radio-group fill="#DC4C3F" label="orderType" v-model="pagination.orderType" @change="getAll">
+          <el-radio-button label="全部">全部</el-radio-button>
+          <el-radio-button label="待揽件">待揽件</el-radio-button>
+          <el-radio-button label="运输中">运输中</el-radio-button>
+          <el-radio-button label="已签收">已签收</el-radio-button>
+          <el-radio-button label="未成交">未成交</el-radio-button>
+        </el-radio-group>
     </div>
     <div class="SendFormType">
         <el-table
         ref="multipleTableRef"
         :data="SendDateList"
-        style="width: 100%"
-        @selection-change="handleSelectionChange" stripe border 
+        style="width: 100%" stripe border 
         >
         <el-table-column type="selection" width="55" />
         <el-table-column label="单号" width="120">
-            <template #default="scope">{{ scope.row.orderId }}</template>
+            <template #default="scope">{{ scope.row.order_id }}</template>
         </el-table-column>
-        <el-table-column property="name" label="寄" width="120" />
-        <el-table-column property="name" label="收" width="120" />
-        <el-table-column property="type" label="订单状态" width="120" />
-        <el-table-column property="description" label="下单时间" width="240" show-overflow-tooltip />
+        <el-table-column property="senderaddr_linkman" label="寄" width="120" />
+        <el-table-column property="consigneeaddr_linkman" label="收" width="120" />
+        <el-table-column property="order_type" label="订单状态" width="120" />
+        <el-table-column property="pay_time" label="下单时间" width="240" show-overflow-tooltip />
             <el-table-column fixed="right" label="操作" width="100">
               <template #default>
                 <el-button link type="primary" size="small" @click="handleClick">详情</el-button>
@@ -45,60 +52,42 @@
   import axios from 'axios';
   import { useStore } from 'vuex'
 
+  const input = ref('')
   const store = useStore();
   const SendDateList = ref(null)
-
-  const pagination = {//分页相关模型数据
+  const pagination = ref({//分页相关模型数据
                 currentPage: 1,//当前页码
-                pageSize:10,//每页显示的记录数
+                pageSize:5,//每页显示的记录数
                 total:0,//总记录数
-                type: "",
+                orderId: "",
+                orderType: "全部",
                 name: "",
                 description: ""
-            }
-//   const tableData: {}
+            })
 
   const multipleTableRef = ref<InstanceType<typeof ElTable>>()
-
   const handleClick = () => {
   console.log('click')
 }
 const handleCurrentChange = (currentPage) => {
-    //修改页码值为当前选中的页码值
-    pagination.currentPage = currentPage;
+    pagination.value.currentPage = currentPage;
     //执行查询
     getAll();
 }
 const getAll = () => {
-        //组织参数，拼接url请求地址
-        // console.log(pagination.type);
-        let param = "?type="+pagination.type;
-        param +="&name="+pagination.name;
-        param +="&description="+pagination.description;
-        // console.log(param);
-
-        //发送异步请求
-        axios.get("/api/books/"+pagination.currentPage+"/"+pagination.pageSize+param).then((res)=>{
-            pagination.pageSize = res.data.data.size;
-            pagination.currentPage = res.data.data.current;
-            pagination.total = res.data.data.total;
-
+        let param = "?orderUserid="+store.state.userId;
+        param +="&orderId="+pagination.value.orderId;
+        param +="&orderType="+pagination.value.orderType;
+        console.log("pagination.value.orderType"+pagination.value.orderType)
+        axios.get("/api/orders/"+pagination.value.currentPage+"/"+pagination.value.pageSize+param).then((res)=>{
             SendDateList.value = res.data.data.records;
-            console.log(SendDateList.value);
-
+            pagination.value.pageSize = res.data.data.size;
+            pagination.value.currentPage = res.data.data.current;
+            pagination.value.total = res.data.data.total;
+            // console.log(res.data.data.records);
         });
-        // axios.get("/api/orders/"+pagination.currentPage+"/"+pagination.pageSize+store.state.userId).then((res)=>{
-        //     pagination.pageSize = res.data.data.size;
-        //     pagination.currentPage = res.data.data.current;
-        //     pagination.total = res.data.data.total;
-
-        //     SendDateList.value = res.data.data.records;
-        //     console.log(SendDateList.value);
-
-        // });
     }
   onMounted(() => {
-    console.log("1");
     getAll();
   })
   </script>

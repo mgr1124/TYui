@@ -1,116 +1,84 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="SendFormType">
-        <el-input size="large" placeholder="订单号" v-model="searchText" clearable style="width: 20em;"></el-input>
-        <el-button size="large" round @click="search">搜索</el-button>
-    </div>
-    <div class="SendFormType">
-        <el-table
-        ref="multipleTableRef"
-        :data="tableData"
-        style="width: 100%"
-        @selection-change="handleSelectionChange" stripe border 
-        >
-        <el-table-column type="selection" width="55" />
-        <el-table-column label="单号" width="120">
-            <template #default="scope">{{ scope.row.date }}</template>
-        </el-table-column>
-        <el-table-column property="name" label="寄" width="120" />
-        <el-table-column property="name" label="收" width="120" />
-        <el-table-column property="name" label="订单状态" width="120" />
-        <el-table-column property="address" label="下单时间" width="240" show-overflow-tooltip />
-            <el-table-column fixed="right" label="操作" width="100">
-              <template #default>
-                <el-button link type="primary" size="small" @click="handleClick">详情</el-button>
-                <el-button link type="primary" size="small">Edit</el-button>
-              </template>
-            </el-table-column>
-        </el-table>
-        <div style="margin-top: 20px">
-        <el-button @click="toggleSelection([tableData[1], tableData[2]])"
-            >Toggle selection status of second and third rows</el-button
-        >
-        <el-button @click="toggleSelection()">Clear selection</el-button>
-        </div>
-    </div>
-    
-  </template>
+  <div class="SendFormType">
+      <el-table
+      ref="multipleTableRef"
+      :data="SendDateList"
+      style="width: 100%" stripe border 
+      >
+      <el-table-column type="selection" width="55" />
+      <el-table-column label="单号" width="120">
+          <template #default="scope">{{ scope.row.order_id }}</template>
+      </el-table-column>
+      <el-table-column property="senderaddr_linkman" label="寄" width="120" />
+      <el-table-column property="consigneeaddr_linkman" label="收" width="120" />
+      <el-table-column property="order_type" label="订单状态" width="120" />
+      <el-table-column property="pay_time" label="下单时间" width="240" show-overflow-tooltip />
+          <el-table-column fixed="right" label="操作" width="100">
+            <template #default>
+              <el-button link type="primary" size="small" @click="handleClick">详情</el-button>
+              <el-button link type="primary" size="small">Edit</el-button>
+            </template>
+          </el-table-column>
+      </el-table>
+      <div style="margin-top: 20px">
+      <!-- <el-button @click="toggleSelection()">Clear selection</el-button> -->
+      </div>
+      <div class="pagination-container">
+          <el-pagination class="pagiantion" @current-change="handleCurrentChange"
+              :current-page="pagination.currentPage" :page-size="pagination.pageSize"
+               layout="total, prev, pager, next, jumper" :total="pagination.total">
+          </el-pagination>
+      </div>
+  </div>
   
-  <script lang="ts" setup>
-  import { ref,onMounted } from 'vue'
-  import { ElTable } from 'element-plus'
-  
-  interface User {
-    date: string
-    name: string
-    address: string
-  }
-  
-  const multipleTableRef = ref<InstanceType<typeof ElTable>>()
-  const multipleSelection = ref<User[]>([])
-  const toggleSelection = (rows?: User[]) => {
-    if (rows) {
-      rows.forEach((row) => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        multipleTableRef.value!.toggleRowSelection(row, undefined)
-      })
-    } else {
-      multipleTableRef.value!.clearSelection()
-    }
-  }
-  const handleSelectionChange = (val: User[]) => {
-    multipleSelection.value = val
-  }
-  const handleClick = () => {
-  console.log('click')
+</template>
+
+<script lang="ts" setup>
+import { ref,onMounted } from 'vue'
+import { ElTable } from 'element-plus'
+import axios from 'axios';
+import { useStore } from 'vuex'
+
+const store = useStore();
+const SendDateList = ref(null)
+
+const pagination = {//分页相关模型数据
+              currentPage: 1,//当前页码
+              pageSize:5,//每页显示的记录数
+              total:0,//总记录数
+              type: "",
+              name: "",
+              description: ""
+          }
+
+const multipleTableRef = ref<InstanceType<typeof ElTable>>()
+
+const handleClick = () => {
+console.log('click')
 }
-  const tableData: User[] = [
-    {
-      date: '2016-05-03',
-      name: 'Tom',
-      address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-      date: '2016-05-02',
-      name: 'Tom',
-      address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-      date: '2016-05-04',
-      name: 'Tom',
-      address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-      date: '2016-05-01',
-      name: 'Tom',
-      address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-      date: '2016-05-08',
-      name: 'Tom',
-      address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-      date: '2016-05-06',
-      name: 'Tom',
-      address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-      date: '2016-05-07',
-      name: 'Tom',
-      address: 'No. 189, Grove St, Los Angeles',
-    },
-  ]
-  onMounted(() => {
-    console.log("1");
-  })
-  </script>
+const handleCurrentChange = (currentPage) => {
+  pagination.currentPage = currentPage;
+  getAll();
+}
+const getAll = () => {
+      let param = "?consigneeaddrLinkman="+store.state.userName;
+        axios.get("/api/orders/"+pagination.currentPage+"/"+pagination.pageSize+param).then((res)=>{
+          SendDateList.value = res.data.data.records;
+            pagination.pageSize = res.data.data.size;
+            pagination.currentPage = res.data.data.current;
+            pagination.total = res.data.data.total;
+        });
+  }
+onMounted(() => {
+  console.log("1");
+  getAll();
+})
+</script>
 
 <style scoped>
 .SendFormType{
-  padding: 2rem 1rem;
-  border-top: 1px solid #ccc!important; 
+padding: 2rem 1rem;
+border-top: 1px solid #ccc!important; 
 }
 </style>
-  

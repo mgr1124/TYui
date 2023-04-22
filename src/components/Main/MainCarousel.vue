@@ -16,6 +16,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useRouter } from "vue-router"
+const router = useRouter()
 
 const items = [
   {imageSrc: '/src/assets/main/b1.jpg',},
@@ -24,7 +25,6 @@ const items = [
   {imageSrc: '/src/assets/main/b4.jpg',},
 ]
 const searchText = ref("")
-const router = useRouter()
 
 const search = () => {
   const logistics_id = searchText.value // 参数值，可以根据实际情况设置

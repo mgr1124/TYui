@@ -108,7 +108,7 @@ const logisticsSearchByMain = async () => {
 }
 
 onMounted(() => {
-    if( route.params.logistics_id != "" ){
+    if( route.params.logistics_id != ":logistics_id" ){
         logisticsSearchByMain();
     }
   })
