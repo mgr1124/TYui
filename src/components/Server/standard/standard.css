@@ -1,0 +1,20 @@
+
+.BodyStandard{
+    line-height:1.5rem;
+}
+.BodyStandard {
+  margin-top: 2rem;
+} 
+.BodyStandardHand{
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 1.5rem 0;
+}
+
+.StandardIcon{
+    background-color: crimson; 
+    height: 1.2rem; 
+    width: 0.4rem;
+    margin: auto 0;
+    margin-right: 1rem;
+}

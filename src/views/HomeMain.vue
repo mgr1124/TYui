@@ -45,7 +45,7 @@
     MainCarousel
   }
   const handleSelect = () => {
-    console.log("handleSelect");
+    // console.log("handleSelect");
   }
 
 </script>
@@ -71,7 +71,7 @@
   }
   .main_service_MainCard{
     width: 75rem;
-    margin: 50px auto;
+    margin: 3.125rem auto;
     background-color: white;
   }
   .main_service_introduce{

@@ -5,19 +5,19 @@
         <el-menu-item index="/">首页</el-menu-item>
         <el-sub-menu index="2-4">
             <template #title>物流服务</template>
-            <el-menu-item index="/server">仓配服务</el-menu-item>
-            <el-menu-item index="2-4-2">快递快运服务</el-menu-item>
-            <el-menu-item index="2-4-3">大件服务</el-menu-item>
-            <el-menu-item index="2-4-3">跨境服务</el-menu-item>
+            <el-menu-item index="/server/rush">即时配</el-menu-item>
+            <el-menu-item index="/server/sameday">快递服务</el-menu-item>
+            <el-menu-item index="/server/heavypackage">快运服务</el-menu-item>
+            <el-menu-item index="/server/intstandard">跨境服务</el-menu-item>
         </el-sub-menu>
         <el-menu-item index="/orders/OrderListPay">邮寄下单</el-menu-item>
         <el-menu-item index="/logistics/:logistics_id">物流运单</el-menu-item>
-        <el-menu-item index="/login">login</el-menu-item>
+        <!-- <el-menu-item index="/login">login</el-menu-item>
         <el-menu-item index="/payments">payments</el-menu-item>
-        <el-menu-item index="/test">test</el-menu-item>
+        <el-menu-item index="/test">test</el-menu-item> -->
         <div class="flex-grow" style="flex-grow: 1;"></div>
         <el-sub-menu index="2">
-            <template #title><el-avatar :icon="UserFilled" /> {{user.userName}} </template>
+            <template #title><el-avatar :icon="UserFilled"  /> {{user.userName}} </template>
             <el-menu-item index="/" @click="dialogVisible = true">登录</el-menu-item>
             <el-menu-item index="/">个人信息</el-menu-item>
             <el-menu-item index="/"  @click="PushOut">退出</el-menu-item>
@@ -52,7 +52,7 @@
   const input_id = ref('')
   const input_password = ref('')
   const handleSelect = () => {
-    console.log("handleSelect");
+    // console.log("handleSelect");
   }
   const UserLogin = () =>{
     dialogVisible.value = false;
@@ -70,7 +70,7 @@
       })
       }
     }).catch(err => {
-      console.log(err);
+      // console.log(err);
     })
   }
   const PushOut = () =>{

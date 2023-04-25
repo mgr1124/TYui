@@ -3,12 +3,12 @@
       <el-carousel indicator-position="outside">
         <el-carousel-item v-for="item in items" :key="item" >
           <img :src="item.imageSrc" fit="scale-down" style="width: 100%; " alt="carousel image" />
-          <el-button class="detail-button" >Details</el-button>
+          <!-- <h1>{{ item.des }}</h1> -->
         </el-carousel-item>
       </el-carousel>
       <div class="input_container">
-      <el-input size="large" placeholder="物流订单查询" v-model="searchText" clearable style="width: 20em;"></el-input>
-      <el-button size="large" round @click="search">搜索</el-button>
+        <el-input size="large" placeholder="物流查询" v-model="searchText" clearable style="width: 20em;"></el-input>
+        <el-button size="large" round @click="search">搜索</el-button>
       </div>
     </div>
 </template>
@@ -19,10 +19,10 @@ import { useRouter } from "vue-router"
 const router = useRouter()
 
 const items = [
-  {imageSrc: '/src/assets/main/b1.jpg',},
-  {imageSrc: '/src/assets/main/b2.jpg',},
-  {imageSrc: '/src/assets/main/b3.jpg',},
-  {imageSrc: '/src/assets/main/b4.jpg',},
+  {imageSrc: '/src/assets/main/pexels-nataliya-vaitkevich.jpg',des:"提供优质服务，以及优质服务生态"},
+  {imageSrc: '/src/assets/main/pexels-liza-summer.jpg',des:"提供优质服务，以及优质服务生态"},
+  {imageSrc: '/src/assets/main/pexels-tiger-lily.jpg',des:"提供优质服务，以及优质服务生态"},
+  {imageSrc: '/src/assets/main/pexels-paul-ijsendoorn.jpg',des:"提供优质服务，以及优质服务生态"},
 ]
 const searchText = ref("")
 
@@ -37,16 +37,17 @@ const search = () => {
 .Carousel {
   position: relative; /* 使用相对定位 */
 }
-.detail-button {
-  position: absolute; /* 使用绝对定位 */
-  bottom: 2em;
-  right: 2em;
-}
 .input_container{
   position: absolute; /* 使用绝对定位 */
   top: 5em;
   left: 4em;
 }
+/* .Carousel h1{
+  position: absolute; 
+  top: 50vh;
+  left: 10vh;
+} */
+
 
 
 </style>
@@ -55,7 +56,7 @@ const search = () => {
 /* 主页轮播 */
 .Carousel .el-carousel--horizontal .el-carousel__container {
 height: 80vh;
-min-height: 10rem;
+/* min-height: 10rem; */
 }
 .Carousel .el-carousel--horizontal .el-carousel__indicators {
   position: absolute; /* 使用绝对定位 */

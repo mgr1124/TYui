@@ -21,7 +21,7 @@
             </template>
           </el-table-column>
       </el-table>
-      <div style="margin-top: 20px">
+      <div style="margin-top: 1.25rem">
       <!-- <el-button @click="toggleSelection()">Clear selection</el-button> -->
       </div>
       <div class="pagination-container">
@@ -36,7 +36,7 @@
 
 <script lang="ts" setup>
 import { ref,onMounted } from 'vue'
-import { ElTable } from 'element-plus'
+import { ElTable,ElNotification} from 'element-plus'
 import axios from 'axios';
 import { useStore } from 'vuex'
 
@@ -55,23 +55,30 @@ const pagination = {//分页相关模型数据
 const multipleTableRef = ref<InstanceType<typeof ElTable>>()
 
 const handleClick = () => {
-console.log('click')
+// console.log('click')
 }
 const handleCurrentChange = (currentPage) => {
   pagination.currentPage = currentPage;
   getAll();
 }
 const getAll = () => {
+    if(store.state.userName === ""){
+      ElNotification({
+          title: 'Warning',
+          message: '-------------请先登入-------------',
+          type: 'warning',
+        })
+    }else{
       let param = "?consigneeaddrLinkman="+store.state.userName;
-        axios.get("/api/orders/"+pagination.currentPage+"/"+pagination.pageSize+param).then((res)=>{
-          SendDateList.value = res.data.data.records;
-            pagination.pageSize = res.data.data.size;
-            pagination.currentPage = res.data.data.current;
-            pagination.total = res.data.data.total;
-        });
+          axios.get("/api/orders/"+pagination.currentPage+"/"+pagination.pageSize+param).then((res)=>{
+            SendDateList.value = res.data.data.records;
+              pagination.pageSize = res.data.data.size;
+              pagination.currentPage = res.data.data.current;
+              pagination.total = res.data.data.total;
+          });
+    }
   }
 onMounted(() => {
-  console.log("1");
   getAll();
 })
 </script>

@@ -48,7 +48,7 @@
   
   <script lang="ts" setup>
   import { ref,onMounted } from 'vue'
-  import { ElTable } from 'element-plus'
+  import { ElTable,ElNotification} from 'element-plus'
   import axios from 'axios';
   import { useStore } from 'vuex'
 
@@ -67,7 +67,7 @@
 
   const multipleTableRef = ref<InstanceType<typeof ElTable>>()
   const handleClick = () => {
-  console.log('click')
+  // console.log('click')
 }
 const handleCurrentChange = (currentPage) => {
     pagination.value.currentPage = currentPage;
@@ -75,17 +75,23 @@ const handleCurrentChange = (currentPage) => {
     getAll();
 }
 const getAll = () => {
+  if(store.state.userName === ""){
+      ElNotification({
+          title: 'Warning',
+          message: '-------------请先登入-------------',
+          type: 'warning',
+        })
+    }else{
         let param = "?orderUserid="+store.state.userId;
         param +="&orderId="+pagination.value.orderId;
         param +="&orderType="+pagination.value.orderType;
-        console.log("pagination.value.orderType"+pagination.value.orderType)
         axios.get("/api/orders/"+pagination.value.currentPage+"/"+pagination.value.pageSize+param).then((res)=>{
             SendDateList.value = res.data.data.records;
             pagination.value.pageSize = res.data.data.size;
             pagination.value.currentPage = res.data.data.current;
             pagination.value.total = res.data.data.total;
-            // console.log(res.data.data.records);
         });
+    }
     }
   onMounted(() => {
     getAll();

@@ -21,7 +21,7 @@
 .HomeFooter > footer {
   background-color: #373737;
   color: #fff;
-  padding: 20px;
+  padding: 1.25rem;
   text-align: center;
 }
 nav ul {
@@ -31,7 +31,7 @@ nav ul {
 }
 nav ul li {
   display: inline-block;
-  margin-right: 20px;
+  margin-right: 1.25rem;
 }
 nav ul li a {
   color: #fff;

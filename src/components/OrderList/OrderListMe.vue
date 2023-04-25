@@ -51,11 +51,8 @@
       }
     })
     const handleClick = (tab: TabsPaneContext, event: Event) => {
-        console.log(tab, event)
+        // console.log(tab, event)
     }
-    const Submit = () => {
-        console.log(11);
-    };
 
     </script>
     

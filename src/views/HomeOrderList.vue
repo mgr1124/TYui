@@ -10,17 +10,17 @@
               <span>在线下单</span>
             </el-menu-item>
             <el-menu-item index="/orders/OrderListMe">
-              <el-icon><icon-menu /></el-icon>
+              <el-icon><setting /></el-icon>
               <span>我的订单</span>
             </el-menu-item>
-            <el-menu-item index="3" >
+            <!-- <el-menu-item index="3" >
               <el-icon><document /></el-icon>
               <span>地址管理</span>
             </el-menu-item>
             <el-menu-item index="4">
               <el-icon><setting /></el-icon>
               <span>账单管理</span>
-            </el-menu-item>
+            </el-menu-item> -->
           </el-menu>
         </el-col>
       </el-row>
@@ -37,10 +37,10 @@ import { Document, Menu as IconMenu, Location, Setting, } from '@element-plus/ic
 
 
 const handleOpen = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
+  // console.log(key, keyPath)
 }
 const handleClose = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
+  // console.log(key, keyPath)
 }
 </script>
 

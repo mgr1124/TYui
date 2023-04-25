@@ -1,0 +1,58 @@
+
+    .service{
+      height: 25rem;
+      background-image: url("/src/assets/main/card/02.jpg");
+    }
+    .service-body{
+      display: flex;
+      width: 60rem;
+      margin: 0 auto;
+      flex-direction: column;
+    } 
+    .service > .service-body{
+      color: azure;
+    }
+    .service > .service-body > h1{
+      padding-top: 7rem ;
+      font-weight:bold;  
+    } 
+    .service > .service-body > span{
+      padding-top: 4rem ;
+    }
+  
+    .service2 > .service-body > .service-body-hand{
+      padding: 2rem 2rem;
+    }
+    .service2 > .service-body > .service-body-hand h1{
+      font-weight:bold;  
+      color: black;
+      text-align: center;
+    }
+    /* .service-body-body .el-row{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between !important; 
+      background-color: aqua;
+    }
+    .service-body-body .el-row .el-col{
+      margin-left: 0 !important;
+    }
+*/
+.service-body-bodyproduct{
+      display: flex;
+      flex-wrap: wrap ;  
+      justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+    .service-body-bodyproduct > .bodyproduct{
+      width: 49%;
+      height: 25rem;
+      text-align: center;  
+      box-shadow: 5px 5px 10px 5px #EDEDED; 
+      margin-top: 5rem;
+      font-size: 15px;
+    }
+
+  
+   
+    

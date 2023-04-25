@@ -1,7 +1,7 @@
 <template>
     <div class="logistics">
         <div class="logistics_hander">
-            <el-input  placeholder="物流订单查询" v-model="searchText" clearable style="width: 20em;"></el-input>
+            <el-input  placeholder="物流查询" v-model="searchText" clearable style="width: 20em;"></el-input>
             <el-button round @click="logisticsSearch" type="primary">搜索</el-button>
         </div>
         <div class="logistics_main">
@@ -91,19 +91,17 @@ const logisticsSearch = async () => {
     try {
         const response = await axios.get("/api/logistics/"+searchText.value);
         logisticsData.value = response.data.data;
-        console.log(logisticsData.value);
     } catch (error) {
-        console.log(error);
+        // console.log(error);
     }
 }
 
 const logisticsSearchByMain = async () => {
     try {
-        console.log(route.params.logistics_id);
         const response = await axios.get("/api/logistics/"+route.params.logistics_id);
         logisticsData.value = response.data.data;
     } catch (error) {
-        console.log(error);
+        // console.log(error);
     }
 }
 
