@@ -35,3 +35,14 @@ a,
   }
   
 } */
+@media (orientation:portrait)  {
+  body {
+    display: flex;
+    font-size: .625rem;
+  }
+  #app {
+    display: grid;
+
+  }
+  
+}

@@ -81,7 +81,6 @@
     orderList.payment.payCost = msgSendTypee.orderCost;
     if(orderList.order.orderUserid != ''){
         axios.post("/api/orders",orderList).then((res)=>{
-        // console.log("是否成功："+res.data.flag);
         let flag;
         if(res.data.flag)flag = '下单成功';else flag = '下单成功';
         ElMessageBox.alert(flag, '提示', {

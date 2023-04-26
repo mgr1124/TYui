@@ -20,7 +20,7 @@
           </div>
           <div class="service-body-body">
             <div class="bodyleft">
-              <el-image  src="/src/assets/main/card/pexels-kai-pilger.jpg" fit="cover" />
+              <el-image  src="/main/card/pexels-kai-pilger.jpg" fit="cover" />
             </div>
             <div class="bodyright">
               <div class="bodyright-main">
@@ -82,7 +82,7 @@
     <style scoped>
     .service{
       height: 25rem;
-      background-image: url("/src/assets/main/card/02.jpg");
+      background-image: url("/main/card/02.jpg");
     }
     .service-body{
       display: flex;
@@ -142,7 +142,55 @@
       text-align: center;    
       box-shadow: 5px 5px 10px 5px #EDEDED; 
     }
-  
+    @media (orientation:portrait)  {
+  .service{
+  height: 15rem;
+}
+  .service-body{
+  display: flex;
+  width: auto  ;
+  margin: 0 auto;
+  flex-direction: column;
+} 
+.service > .service-body > h1{
+  padding: 1rem 3rem ;
+  font-weight:bold;  
+} 
+.service > .service-body > span{
+  padding:1rem 3rem ;
+}
+.service2 > .service-body > .service-body-hand{
+  padding: 1rem 2rem;
+}
+.service2 > .service-body > .service-body-hand h1{
+  font-weight:bold;  
+  color: black;
+  text-align: center;
+}
+.service-body-body{
+  display: flex;
+  flex-wrap: nowrap
+}
+.service2 > .service-body > .service-body-body > .bodyleft{
+  margin: auto 0;
+}
+.service2 > .service-body > .service-body-body > .bodyleft > .el-image{
+  width: 8rem;height: 5.5rem;
+}
+.service2 > .service-body > .service-body-body > .bodyright{
+  height: 8rem;
+  width: 14rem;
+  background-color: white;
+  box-shadow: 5px 5px 10px 5px #EDEDED; 
+}
+.bodyright > .bodyright-main{
+  width: 9rem;
+  height: 4rem;
+  padding: 0 auto;
+  margin: 1rem auto;
+}
+
+}
     </style>
     
     

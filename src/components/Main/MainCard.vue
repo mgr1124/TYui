@@ -1,4 +1,8 @@
 <template>
+      <div class="main_service_detail">
+        <h1 style="padding: 0.5em 0em;">&emsp;&emsp;核心服务</h1>
+        <span>&emsp;&emsp;中国领先的技术驱动的供应链解决方案及物流服务供应商</span>
+      </div>
   <el-row class="login-el-row">
     <el-col  v-for="(item, index) in cards" :key="item" :span="8" :offset="index > 0 ? 2 : 0"  >
       <el-card :body-style="{ padding: '0px' }" shadow="hover" @click="router.push(item.router)">
@@ -19,10 +23,10 @@
 
 const router = useRouter()
 const cards = [
-    {imageSrc: '/src/assets/main/card/01.jpg',hander:'即时配',router:'/server/rush',text:"面向所有客户的全场景同城物流配送，专人专送，为客户提供全城范围内的点到点急速配送服务。"},
-    {imageSrc: '/src/assets/main/card/02.jpg',hander:'快递服务',router:'/server/sameday',text:"为您提供“快速、准时、稳定”或“价格更优、时效稳定、托寄无忧、服务范围广”的高品质、门到门的标准快递服务。"},
-    {imageSrc: '/src/assets/main/card/pexels-tom-fisk.jpg',hander:'快运服务',router:'/server/heavypackage',text:"提供单票20KG+大件托运服务，满足B2C电商大包裹、B2B门店调拨场景、全程提供高品质物流服务。"},
-    {imageSrc: '/src/assets/main/card/pexels-kai-pilger.jpg',hander:'跨境服务',router:'/server/intstandard',text:"为满足客户紧急物品寄递需求，各环节均以最快速度进行发运、中转和派送的高品质门到门国际快件服务。"},
+    {imageSrc: '/main/card/01.jpg',hander:'即时配',router:'/server/rush',text:"面向所有客户的全场景同城物流配送，专人专送，为客户提供全城范围内的点到点急速配送服务。"},
+    {imageSrc: '/main/card/02.jpg',hander:'快递服务',router:'/server/sameday',text:"为您提供“快速、准时、稳定”或“价格更优、时效稳定、托寄无忧、服务范围广”的高品质、门到门的标准快递服务。"},
+    {imageSrc: '/main/card/pexels-tom-fisk.jpg',hander:'快运服务',router:'/server/heavypackage',text:"提供单票20KG+大件托运服务，满足B2C电商大包裹、B2B门店调拨场景、全程提供高品质物流服务。"},
+    {imageSrc: '/main/card/pexels-kai-pilger.jpg',hander:'跨境服务',router:'/server/intstandard',text:"为满足客户紧急物品寄递需求，各环节均以最快速度进行发运、中转和派送的高品质门到门国际快件服务。"},
   ]
 </script>
 
@@ -46,8 +50,14 @@ const cards = [
   width: 100%;
   display: block;
 }
+.main_service_detail{
+  width: 75rem;
+  margin: 2rem auto;
+}
 .login-el-row{
-  width: 62.5rem;
+  width: 75rem;
+  background-color: white;
+  padding: 1rem 5rem;
   margin: 0 auto;
 }
 .login-el-row .el-col{
@@ -58,5 +68,22 @@ const cards = [
 }
 .login-el-row .el-card:hover{
 transform: scale(1.2);
+}
+
+@media (orientation:portrait)  {
+    .main_service_detail{
+    width: 20rem;
+    margin: 1rem auto;
+  }
+    .login-el-row{
+      width: 100%;
+    background-color: white;
+    padding: 1rem 0rem;
+  }
+  .time {
+  font-size: .5rem;
+  color: #999;
+}
+
 }
 </style>

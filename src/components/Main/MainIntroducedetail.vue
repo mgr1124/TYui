@@ -1,6 +1,6 @@
 <template>
   <div class="main_service_introducedetail">
-    <el-tabs tab-position="left" style="height: 20rem" class="introducedetail-tabs" >
+    <el-tabs tab-position="left"  class="introducedetail-tabs" >
     <el-tab-pane label="快消"><h2>快消行业解决方案</h2>
       <span>消费品行业智能供应链解决方案</span>
       <br><span>高端消费品行业仓配一体服务</span>
@@ -55,7 +55,7 @@ const router = useRouter()
 </script>
 <style scoped>
   .main_service_introducedetail{
-    height: 30rem;
+    height: auto;
     width: 75rem;
     padding-top: 2rem;
     margin: 0 auto;
@@ -70,6 +70,18 @@ const router = useRouter()
   margin-top: 1em;
   color:azure;
  }
+
+ @media (orientation:portrait)  {
+  .main_service_introducedetail{
+    height: auto;
+    width: auto;
+    padding-top: 2rem;
+    margin: 0 auto;
+    font-size: 0.7rem;
+    line-height: 1.5rem;
+    text-indent: 1em
+  }
+}
 </style>
 
 <style>
@@ -82,5 +94,11 @@ const router = useRouter()
   .introducedetail-tabs > .el-tabs__content > .el-tab-pane > h2{
     margin: 0 -0.7em;
   }
+
+@media (orientation:portrait)  {
+  .introducedetail-tabs > .el-tabs__content {
+    padding: 0 1rem;
+  }
+}
 </style>
 

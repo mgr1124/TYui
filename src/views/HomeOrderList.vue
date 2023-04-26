@@ -47,7 +47,7 @@ const handleClose = (key: string, keyPath: string[]) => {
 
 <style scoped>
 .HomeOrderList{
-  background-image: url("/src/assets/main/card/02.jpg");
+  background-image: url("/main/card/02.jpg");
 }.HomeOrderListMain{
   display: flex;
   width: 80rem;

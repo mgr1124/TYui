@@ -46,4 +46,7 @@
     margin: auto 0;
     margin-right: 1rem;
 }
+@media (orientation:portrait)  {
+
+}
 </style>

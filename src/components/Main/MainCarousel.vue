@@ -19,10 +19,10 @@ import { useRouter } from "vue-router"
 const router = useRouter()
 
 const items = [
-  {imageSrc: '/src/assets/main/pexels-nataliya-vaitkevich.jpg',des:"提供优质服务，以及优质服务生态"},
-  {imageSrc: '/src/assets/main/pexels-liza-summer.jpg',des:"提供优质服务，以及优质服务生态"},
-  {imageSrc: '/src/assets/main/pexels-tiger-lily.jpg',des:"提供优质服务，以及优质服务生态"},
-  {imageSrc: '/src/assets/main/pexels-paul-ijsendoorn.jpg',des:"提供优质服务，以及优质服务生态"},
+  {imageSrc: 'main/pexels-nataliya-vaitkevich.jpg',des:"提供优质服务，以及优质服务生态"},
+  {imageSrc: 'main/pexels-liza-summer.jpg',des:"提供优质服务，以及优质服务生态"},
+  {imageSrc: 'main/pexels-tiger-lily.jpg',des:"提供优质服务，以及优质服务生态"},
+  {imageSrc: 'main/pexels-paul-ijsendoorn.jpg',des:"提供优质服务，以及优质服务生态"},
 ]
 const searchText = ref("")
 
@@ -42,14 +42,11 @@ const search = () => {
   top: 5em;
   left: 4em;
 }
-/* .Carousel h1{
-  position: absolute; 
-  top: 50vh;
-  left: 10vh;
-} */
-
-
-
+@media (orientation:portrait)  {
+  .input_container{
+   display: none;
+}
+}
 </style>
 
 <style>
@@ -61,13 +58,22 @@ height: 80vh;
 .Carousel .el-carousel--horizontal .el-carousel__indicators {
   position: absolute; /* 使用绝对定位 */
   bottom: 2em;
-  left: calc(50% - 76px);
+  left: calc(50% - 4.75rem);
 }
 .input_container .el-input .el-input__wrapper{
 border-radius:  var(--el-border-radius-round) !important;
 }
 
-/* main_service */
-
+@media (orientation:portrait)  {
+  .Carousel .el-carousel--horizontal .el-carousel__container {
+  height: 10rem;
+/* min-height: 10rem; */
+}
+.Carousel .el-carousel--horizontal .el-carousel__indicators {
+  position: absolute; /* 使用绝对定位 */
+  bottom: 1em;
+  left: calc(50% - 4.75rem);
+}
+}
 </style>
 
