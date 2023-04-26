@@ -104,6 +104,11 @@ padding: 1rem !important;
 margin: 1rem ;
 width: calc(100% - 2rem);
 }
+@media (orientation:portrait)  {
+  .main_dia{
+    width: 100%;
+  }
 
+}
 
 </style>
