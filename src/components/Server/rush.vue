@@ -20,7 +20,7 @@
         </div>
         <div class="service-body-body">
           <div class="bodyleft">
-            <el-image  src="/main/card/02.jpg" fit="cover" />
+            <el-image  src="/main/card/01.jpg" fit="cover" />
           </div>
           <div class="bodyright">
             <div class="bodyright-main">

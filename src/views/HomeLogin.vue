@@ -56,7 +56,7 @@ const handleSelect = () => {
 }
 const UserLogin = () =>{
   dialogVisible.value = false;
-  axios.get("http://123.249.101.68:8080/users/"+input_id.value+"/"+input_password.value).then((res)=>{
+  axios.get("/api/users/"+input_id.value+"/"+input_password.value).then((res)=>{
     // console.log(res.data);
     if(res.data.flag){
       user.value = res.data.data;
